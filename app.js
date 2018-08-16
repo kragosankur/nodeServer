@@ -2,27 +2,27 @@ const fs = require('fs');
 const _ = require('lodash');
 const yargs = require('yargs');
 const keys = require('./keys');
+const notes = require('./notes');
 
-const command = process.argv;
 const args = yargs.argv;
+var command = args._[0];
 
-// const command = process.argv[2];
-if(args.title === "ankur")
-{
-    console.log('1');
+if(command === 'add') {
+    var note = notes.addNotes(args.title, args.body);
+    if(note) {
+        console.log('note created successfully.')
+        console.log(' == ');
+        console.log(`Title : ${args.title}`);
+        console.log(`Body : ${args.body}`);
+    } else {
+        console.log("Note title already taken");
+    }
+} else if(command === 'list') {
+    console.log('reading note');
+} else if(command == 'read') {
+    console.log('testing your command');
+} else if(command === 'remove') {
+    notes.removeNote(args.title);
+} else {
+    console.log('command does not recognize.');
 }
-else{
-    console.log('else');    
-}
-
-// if(command === 'list') {
-//     console.log("listing all files");
-// } else if(command === 'read') {
-//     console.log('reading note');
-// } else if(command == 'ankur') {
-//     console.log('testing your command');
-// } else if(command === 'remove') {
-//     console.log('removing the note');
-// } else {
-//     console.log('else block.');
-// }
